@@ -52,7 +52,7 @@
     <p>A navigation bar is a navigation header that is placed at the top of the page.</p>
 </div>
 <div id="result">fukin button here</div>
-<div class="toggle">
+<div class="toggle1">
     <h2>Toggle Switch1</h2>
     <label class="switch">
         <input type="checkbox">
@@ -60,12 +60,12 @@
     </label>
 </div>
 <script>
-    $('.toggle').hide();
-    $('#action').on('click', () => $('.toggle').show());
+    $('.toggle1').hide();
+    $('#action').on('click', () => $('.toggle1').show());
     document.addEventListener('DOMContentLoaded', function () {
-        var checkbox = document.querySelector('input[type="checkbox"]');
-        checkbox.addEventListener('change', function () {
-            if (checkbox.checked) {
+        var checkbox1 = document.querySelector('input[type="checkbox"]');
+        checkbox1.addEventListener('change', function () {
+            if (checkbox1.checked) {
                 $.ajax({
                     url: 'server.php',
                     method: "GET",
@@ -92,6 +92,45 @@
     });
 </script>
 
+<div class="toggle2">
+    <h2>Toggle Switch1</h2>
+    <label class="switch">
+        <input type="checkbox">
+        <div class="slider"></div>
+    </label>
+</div>
+<script>
+    $('.toggle2').hide();
+    $('#action').on('click', () => $('.toggle2').show());
+    document.addEventListener('DOMContentLoaded', function () {
+        var checkbox2 = document.querySelector('input[type="checkbox"]');
+        checkbox2.addEventListener('change', function () {
+            if (checkbox2.checked) {
+                $.ajax({
+                    url: 'server.php',
+                    method: "GET",
+                    data: {b: true}
+                }).done(() => {
+                    alert("Create dir test1 successful")
+                })
+                    .fail(() => {
+                        alert("Error")
+                    })
+            } else {
+                $.ajax({
+                    url: 'server.php',
+                    method: "GET",
+                    data: {b: false}
+                }).done(() => {
+                    alert("delete dir test1 successful")
+                })
+                    .fail(() => {
+                        alert("Error")
+                    })
+            }
+        });
+    });
+</script>
 </body>
 </html>
 
