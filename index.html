@@ -55,41 +55,34 @@
 <div class="toggle">
     <h2>Toggle Switch1</h2>
     <label class="switch">
-        <input type="checkbox">
-        <div class="slider"></div>
+        <input type="checkbox" id="checkbox1">
+        <div class="slider"/>
     </label>
 </div>
 <script>
     $('.toggle').hide();
     $('#action').on('click', () => $('.toggle').show());
-    document.addEventListener('DOMContentLoaded', function () {
-        var checkbox = document.querySelector('input[type="checkbox"]');
-        checkbox.addEventListener('change', function () {
-            if (checkbox.checked) {
-                $.ajax({
-                    url: 'server.php',
-                    method: "GET",
-                    data: {a: true}
-                }).done(() => {
-                    alert("Create dir test successful")
-                })
-                    .fail(() => {
-                        alert("Error")
-                    })
-            } else {
-                $.ajax({
-                    url: 'server.php',
-                    method: "GET",
-                    data: {a: false}
-                }).done(() => {
-                    alert("delete dir test successful")
-                })
-                    .fail(() => {
-                        alert("Error")
-                    })
-            }
+    $(document).ready(function () {
+        $('#checkbox1').change(function () {
+            sendRequest({a: this.checked}, (msg, err) => {
+                if (err) throw err;
+                console.log(msg);
+            })
         });
     });
+    const sendRequest = (obj, cb) => {
+        if (obj.a == true) a = "Create"; else if (obj.a == false) a = "Delete";
+        $.ajax({
+            url: 'server.php',
+            method: "GET",
+            data: obj
+        }).done(() => {
+            return cb({msg: a + " dir test successful", err: false})
+        })
+            .fail(() => {
+                return cb({msg: "Error", err: true})
+            })
+    }
 </script>
 
 </body>
